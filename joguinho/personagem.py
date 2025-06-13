@@ -7,7 +7,7 @@ class Personagem:
         self.pontos_de_defesa = pontos_de_defesa
         self.nome = nome
         self.energia_usada = energia_usada
-        
-    def criar_personagem():
-        arqueiro = Personagem(100, 100, 0, 15, 15, "Arqueiro", 0)
-        return print(arqueiro[5])
+
+    def criar_personagem(self):
+
+    def personagem_criado(self):
