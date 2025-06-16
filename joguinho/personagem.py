@@ -1,13 +1,26 @@
+from __future__ import annotations
+from random import randint, sample
+from partida import Partida
 class Personagem:
-    def personagem(self, vida_personagem, vida_atual, dano_sofrido, pontos_de_ataque, pontos_de_defesa, nome, energia_usada):
-        self.vida_personagem = vida_personagem
-        self.vida_atual = vida_atual
-        self.dano_sofrido = dano_sofrido
-        self.pontos_de_ataque = pontos_de_ataque
-        self.pontos_de_defesa = pontos_de_defesa
+    def __init__(self, nome):
         self.nome = nome
-        self.energia_usada = energia_usada
-
+        self.pontos_de_vida_maxima = 100
+        self.vida_atual = 100
+        self.pontos_de_ataque = 15
+        self.pontos_de_defesa = 15
+        self.energia_usada = 0
+        self.energia_maxima = 100
+    
     def criar_personagem(self):
-
-    def personagem_criado(self):
+        personagem = Personagem(self.nome, self.pontos_de_vida_maxima)
+        return personagem
+    def atacar(self, inimigo: Personagem):
+        
+        eficiencia = randint(70, 110) / 100
+        dano = (self.pontos_de_ataque - inimigo.pontos_de_defesa) * eficiencia
+        dano = max(0, round)
+        
+        adicionar_jogadores (player1: Personagem,player2: Personagem)
+        
+        
+        
