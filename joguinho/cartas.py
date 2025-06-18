@@ -26,19 +26,19 @@ class Carta_aumento (Carta):
     def usar_carta (self, beneficiado: Personagem):
         match self.tipo_aumento:
             case Tipo_Aumento.aumento_vida_max:
-                beneficiado.pontos_vida_max += self.pontos_aumentados
+                beneficiado.pontos_de_vida_maxima += self.pontos_aumentados
                 return (f"O {beneficiado} usou uma carta de Aumento de Vida Máxima")
             
             case Tipo_Aumento.aumento_energia_max:
-                beneficiado.energia += self.pontos_aumentados
+                beneficiado.energia_maxima += self.pontos_aumentados
                 return (f"O {beneficiado} usou uma carta de Aumento de Energia Máxima")
                 
             case Tipo_Aumento.aumento_defesa:
-                beneficiado.pontos_defesa += self.pontos_aumentados
+                beneficiado.pontos_de_defesa += self.pontos_aumentados
                 return (f"O {beneficiado} usou uma carta de Aumento de Defesa")
                 
             case Tipo_Aumento.aumento_ataque:
-                beneficiado.pontos_ataque += self.pontos_aumentados
+                beneficiado.pontos_de_ataque += self.pontos_aumentados
                 return (f"O {beneficiado} usou uma carta de Aumento de Ataque")
                 
 class Carta_roubo (Carta):
