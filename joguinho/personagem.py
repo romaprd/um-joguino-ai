@@ -1,6 +1,7 @@
 from __future__ import annotations
 from random import randint, sample
-
+import random
+# from cartas import Carta_atordoamento, Carta_aumento, Carta_cura, Carta_dano, Carta_roubo
 
 class Personagem:
     def __init__(self, nome):
@@ -15,20 +16,34 @@ class Personagem:
     def criar_personagem(self):
         personagem = f'''
         {self.nome}
-        pontos de vida maxima: {self.pontos_de_vida_maxima}
-        vida atual: {self.vida_atual}
+        vida atual: {self.vida_atual}\{self.pontos_de_vida_maxima}
         pontos de ataque: {self.pontos_de_ataque}
         pontos de defesa: {self.pontos_de_defesa}
-        energia usada: {self.energia_usada}
-        energia maxima: {self.energia_maxima}
+        energia usada: {self.energia_usada}\{self.energia_maxima}
         '''
         return personagem
     
+    def comprar_carta(self):
+        
+        pass
     
-    # def atacar(self, inimigo: Personagem):
+    def levar_dano(self):
+    
+        pass
+    
+    def ver_mao_de_cartas(self):
         
-    #     eficiencia = randint(70, 110) / 100
-    #     dano = (self.pontos_de_ataque - inimigo.pontos_de_defesa) * eficiencia
-    #     dano = max(0, round)
+        pass
+    
+    def curar_se(self):
         
-    #     adicionar_jogadores (player1: Personagem,player2: Personagem)
+        pass
+    
+    # def sorteio_cartas(self):
+    #     for i in range(4):
+    #         carta_sorteada = random.randint(1,5)
+            
+    #         if carta_sorteada == 1:
+    #             carta1 = Carta_aumento.usar_carta
+    
+    

@@ -8,36 +8,45 @@ class Tipo_Aumento (Enum):
     aumento_defesa = 3
     aumento_ataque = 4
 
+class Tipo_Artodoamento (Enum):
+    
+    pass
+
 class Carta:
-    def __init__ (self, nome, energia_gasta, descricao):
+    def __init__ (self, nome, energia_gasta, descricao): 
         self.nome = nome
         self.energia_gasta = energia_gasta
         self.descricao = descricao
         
-    def usar_carta (self):
-        pass
-    
+  
 class Carta_aumento (Carta):
+    
     def __init__ (self,  nome, energia_gasta: int, descricao, tipo_aumento: Tipo_Aumento, pontos_aumentados: int):
         super ().__init__ (nome, energia_gasta, descricao)
         self.tipo_aumento = tipo_aumento
         self.pontos_aumentados = pontos_aumentados
     
     def usar_carta (self, beneficiado: Personagem):
-        match self.tipo_aumento:
-            case Tipo_Aumento.aumento_vida_max:
+    
+        sorteado = random.randint(1,4)
+        
+        if sorteado == 1:
+                Tipo_Aumento.aumento_vida_max
                 beneficiado.pontos_de_vida_maxima += self.pontos_aumentados
                 return (f"O {beneficiado} usou uma carta de Aumento de Vida Máxima")
             
-            case Tipo_Aumento.aumento_energia_max:
+        elif sorteado == 2: 
+                Tipo_Aumento.aumento_energia_max
                 beneficiado.energia_maxima += self.pontos_aumentados
                 return (f"O {beneficiado} usou uma carta de Aumento de Energia Máxima")
                 
-            case Tipo_Aumento.aumento_defesa:
+        elif sorteado == 3: 
+                Tipo_Aumento.aumento_defesa
                 beneficiado.pontos_de_defesa += self.pontos_aumentados
                 return (f"O {beneficiado} usou uma carta de Aumento de Defesa")
                 
-            case Tipo_Aumento.aumento_ataque:
+        else:
+                Tipo_Aumento.aumento_ataque
                 beneficiado.pontos_de_ataque += self.pontos_aumentados
                 return (f"O {beneficiado} usou uma carta de Aumento de Ataque")
                 
@@ -46,9 +55,9 @@ class Carta_roubo (Carta):
         super ().__init__ (nome, energia_gasta, descricao)
         
     def usar_carta (self, ladrao: Personagem, vitima: Personagem):
-        sorteio_carta_roubada = random.randint (0, len (vitima.mao_cartas) - 1)
-        carta_roubada = vitima.mao_cartas.pop (sorteio_carta_roubada)
-        ladrao.mao_cartas.append (carta_roubada)
+        sorteio_carta_roubada = random.randint (0, len (vitima.deck) - 1)
+        carta_roubada = vitima.deck.pop (sorteio_carta_roubada)
+        ladrao.deck.append (carta_roubada)
         return (f"O {ladrao} roubou a carta {carta_roubada} do {vitima}")
     
 class Carta_atordoamento (Carta):
@@ -76,3 +85,4 @@ class Carta_cura (Carta):
     def usar_carta (self, beneficiado: Personagem):
         beneficiado.pontos_vida_atual += self.vida_curada
         return (f"O {beneficiado} curou {self.vida_curada} de vida") 
+    

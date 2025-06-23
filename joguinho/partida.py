@@ -1,5 +1,8 @@
 import random
 from personagem import Personagem
+from cartas import Carta, Carta_atordoamento, Carta_aumento,Carta_cura,Carta_dano,Carta_roubo
+from cartas import Tipo_Aumento
+
 players_status = []
 players = []
 class Partida:
@@ -82,7 +85,68 @@ class Partida:
         self.jogador_inimigo = players[1]
         print("o jogador atacante é: ",self.jogador_atual) 
         print("o jogador inimigo é: ",self.jogador_inimigo) 
-
+        
+        op = input(self.jogador_atual," o que você deseja fazer?\n\n1 - usar carta\n2 - comprar carta\n3 - passar ")
+        
+    def criar_cartas (self):
+    
+        nome = "Carta de Aumento de Vida Maxima"
+        energia_gasta = 10
+        descricao = "Esta carta aumenta a vida maxima de um jogador!"
+        carta_vida_maxima = Carta_aumento(nome, energia_gasta, descricao)
+        
+        nome = "Carta de Aumento de Energia"
+        energia_gasta = 10
+        descricao = "Essa carta aumenta a energia maxima de um jogador!"
+        carta_energia_maxima = Carta_aumento(nome, energia_gasta, descricao)
+        
+        nome = "Carta de Aumento de Defesa"
+        energia_gasta = 10
+        descricao = "Essa carta aumentas os pontos de defesa de um jogador!"
+        carta_de_defesa = Carta_aumento(nome, energia_gasta, descricao)
+        
+        nome = "Carta de Aumento de Pontos de Ataque"
+        energia_gasta = 10
+        descricao = "Essa carta aumenta os pontos de ataque de um jogador!"
+        carta_de_ataque = Carta_aumento(nome, energia_gasta, descricao)
+        
+        nome = "Presidencia"
+        energia_gasta = 15
+        descricao = "Essa carta ti permite roubar qual carta do seu oponente!"
+        carta_de_roubo = Carta_roubo(nome, energia_gasta, descricao)
+        
+        nome = "Carta de Atordoamento"
+        energia_gasta = 15
+        descricao = "Essa carta ti permite atordoar o jogador inimigo!"
+        carta_de_atordoamento = Carta_atordoamento(nome, energia_gasta, descricao)
+        
+        nome = "Carta de Dano"
+        energia_gasta = 15
+        descricao = "Essa carta ti permite aumentar o dano do seu personagem!"
+        carta_de_aumento_de_dano = Carta_dano(nome, energia_gasta, descricao)
+        
+        nome = "Carta de cura"
+        energia_gasta = 15
+        descricao = "Essa carta ti permite aumentar a vida do seu personagem!"
+        carta_de_cura = Carta_cura(nome, energia_gasta, descricao)
+        
+        self.lista_de_cartas = []
+        self.lista_de_cartas.append(carta_vida_maxima)
+        self.lista_de_cartas.append(carta_energia_maxima)
+        self.lista_de_cartas.append(carta_de_defesa)
+        self.lista_de_cartas.append(carta_de_ataque)
+        self.lista_de_cartas.append(carta_de_roubo)
+        self.lista_de_cartas.append(carta_de_atordoamento)
+        self.lista_de_cartas.append(carta_de_aumento_de_dano)
+        self.lista_de_cartas.append(carta_de_cura)
+        
+    def listar_cartas(self):
+        for i in self.lista_de_cartas:
+            print(i.nome, i.energia_gasta, i.descricao)  
+              
 if __name__ == "__main__":
     partida = Partida()  
+    partida.criar_cartas()
+    partida.lista_de_cartas()
     partida.inicio_de_partida()  
+    
