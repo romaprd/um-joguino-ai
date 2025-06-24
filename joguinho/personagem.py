@@ -1,7 +1,4 @@
-from __future__ import annotations
-from random import randint, sample
-import random
-# from cartas import Carta_atordoamento, Carta_aumento, Carta_cura, Carta_dano, Carta_roubo
+from random import sample
 
 class Personagem:
     def __init__(self, nome):
@@ -13,37 +10,25 @@ class Personagem:
         self.energia_usada = 0
         self.energia_maxima = 100
         self.deck = []
+
     def criar_personagem(self):
         personagem = f'''
         {self.nome}
-        vida atual: {self.vida_atual}\{self.pontos_de_vida_maxima}
-        pontos de ataque: {self.pontos_de_ataque}
-        pontos de defesa: {self.pontos_de_defesa}
-        energia usada: {self.energia_usada}\{self.energia_maxima}
+        Vida atual: {self.vida_atual}/{self.pontos_de_vida_maxima}
+        Pontos de ataque: {self.pontos_de_ataque}
+        Pontos de defesa: {self.pontos_de_defesa}
+        Energia usada: {self.energia_usada}/{self.energia_maxima}
         '''
         return personagem
-    
-    def comprar_carta(self):
-        
-        pass
-    
-    def levar_dano(self):
-    
-        pass
-    
-    def ver_mao_de_cartas(self):
-        
-        pass
-    
-    def curar_se(self):
-        
-        pass
-    
-    # def sorteio_cartas(self):
-    #     for i in range(4):
-    #         carta_sorteada = random.randint(1,5)
-            
-    #         if carta_sorteada == 1:
-    #             carta1 = Carta_aumento.usar_carta
-    
-    
+
+    def receber_cartas_iniciais(self, todas_as_cartas: list):
+        self.deck = sample(todas_as_cartas, 3)
+        print(f"\nCartas iniciais de {self.nome}:")
+        for carta in self.deck:
+            print(f"- {carta.nome} | Energia: {carta.energia_gasta} | {carta.descricao}")
+
+    def comprar_carta(self, todas_as_cartas: list):
+        nova_carta = sample(todas_as_cartas, 1)[0]
+        self.deck.append(nova_carta)
+        print(f"\n{self.nome} comprou uma carta:")
+        print(f"- {nova_carta.nome} | Energia: {nova_carta.energia_gasta} | {nova_carta.descricao}")
