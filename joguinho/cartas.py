@@ -1,17 +1,20 @@
 from enum import Enum
 import random
 
+
 class Tipo_Aumento(Enum):
     aumento_vida_max = 1
     aumento_energia_max = 2
     aumento_defesa = 3
     aumento_ataque = 4
 
+
 class Carta:
     def __init__(self, nome, energia_gasta, descricao):
         self.nome = nome
         self.energia_gasta = energia_gasta
         self.descricao = descricao
+
 
 class Carta_aumento(Carta):
     def __init__(self, nome, energia_gasta, descricao, tipo_aumento: Tipo_Aumento, pontos_aumentados):
@@ -33,6 +36,7 @@ class Carta_aumento(Carta):
             beneficiado.pontos_de_ataque += self.pontos_aumentados
             return f"{beneficiado.nome} aumentou seu ataque em {self.pontos_aumentados}!"
 
+
 class Carta_roubo(Carta):
     def usar_carta(self, ladrao, vitima):
         if vitima.deck:
@@ -42,10 +46,11 @@ class Carta_roubo(Carta):
             return f"{ladrao.nome} roubou a carta '{carta_roubada.nome}' de {vitima.nome}!"
         return f"{vitima.nome} não tem cartas para serem roubadas."
 
+
 class Carta_atordoamento(Carta):
     def usar_carta(self, prejudicado):
-        prejudicado.energia_usada = prejudicado.energia_maxima
         return f"{prejudicado.nome} foi atordoado e perdeu toda sua energia no turno!"
+
 
 class Carta_dano(Carta):
     def __init__(self, nome, energia_gasta, descricao, dano_causado):
@@ -53,10 +58,12 @@ class Carta_dano(Carta):
         self.dano_causado = dano_causado
 
     def usar_carta(self, atacante, atacado):
-        dano_total = self.dano_causado + atacante.pontos_de_ataque - atacado.pontos_de_defesa
+        dano_total = self.dano_causado + \
+            atacante.pontos_de_ataque - atacado.pontos_de_defesa
         dano_real = max(dano_total, 0)
         atacado.vida_atual -= dano_real
         return f"{atacante.nome} causou {dano_real} de dano em {atacado.nome}!"
+
 
 class Carta_cura(Carta):
     def __init__(self, nome, energia_gasta, descricao, vida_curada):
@@ -64,5 +71,6 @@ class Carta_cura(Carta):
         self.vida_curada = vida_curada
 
     def usar_carta(self, beneficiado):
-        beneficiado.vida_atual = min(beneficiado.pontos_de_vida_maxima, beneficiado.vida_atual + self.vida_curada)
+        beneficiado.vida_atual = min(
+            beneficiado.pontos_de_vida_maxima, beneficiado.vida_atual + self.vida_curada)
         return f"{beneficiado.nome} recuperou {self.vida_curada} de vida!"
