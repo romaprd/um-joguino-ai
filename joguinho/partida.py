@@ -1,10 +1,12 @@
 import random
+import os
 from personagem import Personagem
 from cartas import (
     Carta_aumento, Carta_cura, Carta_dano, Carta_roubo,
     Carta_atordoamento, Tipo_Aumento
 )
 
+    
 
 class Partida:
     def __init__(self):
@@ -26,29 +28,30 @@ class Partida:
             print(f"{self.nome2} tirou: {dado2}")
 
             if dado1 > dado2:
-                print(f"{self.nome1} começa!")
+                Partida.limpar()
+                print(f"{self.nome1} tirou o maior numero no dado: {dado1}. Portanto ele começa!")
                 self.ordem = 0
                 break
             elif dado2 > dado1:
-                print(f"{self.nome2} começa!")
+                Partida.limpar()
+                print(f"{self.nome2} tirou o maior numero no dado: {dado2}. Portanto ele começa!")
                 self.ordem = 1
                 break
             else:
                 print("Empate! Tentem novamente.")
+                
+    def limpar():
+        os.system('cls' if os.name == 'nt' else 'clear')
+        
 
     def criar_cartas(self):
         self.lista_de_cartas = [
-            Carta_aumento("Aumento Vida Máx", 10, "Aumenta vida máx",
-                          Tipo_Aumento.aumento_vida_max, 20),
-            Carta_aumento("Aumento Energia Máx", 10, "Aumenta energia máx",
-                          Tipo_Aumento.aumento_energia_max, 15),
-            Carta_aumento("Aumento Defesa", 10, "Aumenta defesa",
-                          Tipo_Aumento.aumento_defesa, 10),
-            Carta_aumento("Aumento Ataque", 10, "Aumenta ataque",
-                          Tipo_Aumento.aumento_ataque, 10),
+            Carta_aumento("Aumento Vida Máx", 10, "Aumenta vida máx",Tipo_Aumento.aumento_vida_max, 20),
+            Carta_aumento("Aumento Energia Máx", 10, "Aumenta energia máx",Tipo_Aumento.aumento_energia_max, 15),
+            Carta_aumento("Aumento Defesa", 10, "Aumenta defesa",Tipo_Aumento.aumento_defesa, 10),
+            Carta_aumento("Aumento Ataque", 10, "Aumenta ataque",Tipo_Aumento.aumento_ataque, 10),
             Carta_roubo("Roubo", 15, "Rouba uma carta"),
-            Carta_atordoamento("Atordoamento", 15,
-                               "Zera a energia do oponente"),
+            Carta_atordoamento("Atordoamento", 15,"Zera a energia do oponente"),
             Carta_dano("Dano", 15, "Causa dano", 25),
             Carta_cura("Cura", 15, "Cura vida", 30)
         ]
@@ -84,6 +87,7 @@ class Partida:
         jogador.comprar_carta(self.lista_de_cartas)
 
     def passar_turno(self):
+        self.limpar()
         self.jogador_atual, self.jogador_inimigo = self.jogador_inimigo, self.jogador_atual
         print(f"\n Agora é a vez de {self.jogador_atual}")
 
@@ -98,10 +102,11 @@ class Partida:
         print("\n Cartas na sua mão:")
         for i, carta in enumerate(jogador.deck):
             print(
-                f"{i + 1} - {carta.nome} | Energia: {carta.energia_gasta} | {carta.descricao}")
+                f"\n{i + 1} - {carta.nome} | Energia: {carta.energia_gasta} | {carta.descricao}")
 
         try:
             escolha = int(input("Escolha o número da carta para usar: ")) - 1
+            Partida.limpar()
             if escolha < 0 or escolha >= len(jogador.deck):
                 print("Escolha inválida.")
                 return
@@ -127,7 +132,7 @@ class Partida:
                 inimigo.energia_usada = inimigo.energia_maxima
                 jogador.energia_usada = 0
                 resultado = carta.usar_carta(inimigo)
-                print("Turno continua com você. Sua energia foi restaurada.")
+                print("Turno continua com",jogador,". Energia foi restaurada.")
             elif isinstance(carta, Carta_cura):
                 resultado = carta.usar_carta(jogador)
             elif isinstance(carta, Carta_aumento):
@@ -141,8 +146,8 @@ class Partida:
         # self.exibir_status_inimigo(inimigo)
 
     def inicio_de_partida(self):
-        players = [self.nome1, self.nome2] if self.ordem == 0 else [
-            self.nome2, self.nome1]
+        
+        players = [self.nome1, self.nome2] if self.ordem == 0 else [self.nome2, self.nome1]
         self.jogador_atual, self.jogador_inimigo = players[0], players[1]
 
         while True:
@@ -153,7 +158,7 @@ class Partida:
 
             print(f"\n Turno de {self.jogador_atual}")
             self.exibir_status(jogador)
-
+           
             print("\nAções disponíveis:")
             print(
                 "1 - Usar carta\n2 - Comprar carta (custa 25 de energia)\n3 - Passar turno")
@@ -166,10 +171,6 @@ class Partida:
                     self.comprar_carta_turno()
                 case "3":
                     self.passar_turno()
+           
 
 
-if __name__ == "__main__":
-    partida = Partida()
-    partida.criar_cartas()
-    partida.distribuir_cartas_iniciais()
-    partida.inicio_de_partida()
